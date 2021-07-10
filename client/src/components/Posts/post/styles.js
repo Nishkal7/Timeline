@@ -38,11 +38,15 @@ export default makeStyles({
   },
   details: {
     display: 'flex',
+    flexDirection: "column",
     justifyContent: 'space-between',
-    margin: '20px',
+    margin: '5px',
+  },
+  tag: {
+    padding: '5px 5px',
   },
   title: {
-    padding: '0 16px',
+    padding: '0px 7px',
   },
   cardActions: {
     padding: '0 16px 8px 16px',
