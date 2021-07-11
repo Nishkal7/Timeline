@@ -12,6 +12,10 @@ app.use(cors());
 
 app.use('/posts', postRoutes)
 
+app.get('/', (req,res) => {
+    res.send('Hello, Welcome to the Backend side for Wishlist Project');
+})
+
 app.use(express.json({limit: "30mb", extended: true}));
 app.use(express.urlencoded({limit: "30mb", extended: true}));
 
