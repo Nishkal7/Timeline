@@ -5,8 +5,11 @@ import { useSelector, useDispatch } from "react-redux";
 import useStyles from "./styles";
 import { createPost, updatePost } from "../../actions/posts";
 
-const Form = ({currentId, setCurrentId}) => {
-  const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
+const Form = ({ currentId, setCurrentId }) => {
+  const post = useSelector((state) =>
+    currentId ? state.posts.find((p) => p._id === currentId) : null
+  );
+  const allPosts = useSelector((state) => state.posts);
   const Classes = useStyles();
   const dispatch = useDispatch();
   const [postData, setPostData] = useState({
@@ -18,17 +21,20 @@ const Form = ({currentId, setCurrentId}) => {
   });
 
   useEffect(() => {
-    if(post) setPostData(post);
-  },[post])
+    if (post) setPostData(post);
+  }, [post]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if(currentId){
-      dispatch(updatePost(currentId, postData));
+    if (allPosts.length <= 50) {
+      if (currentId) {
+        dispatch(updatePost(currentId, postData));
+      } else {
+        dispatch(createPost(postData));
+      }
     }
     else{
-      dispatch(createPost(postData));
+      alert("Developer has set the limit uploads to 50, Please contact Nishkal for more information")
     }
     clear();
   };
@@ -51,7 +57,9 @@ const Form = ({currentId, setCurrentId}) => {
         className={`${Classes.root} ${Classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">{currentId? 'Updating' : 'Creating'} a Memory</Typography>
+        <Typography variant="h6">
+          {currentId ? "Updating" : "Creating"} a Memory
+        </Typography>
         <TextField
           name="creator"
           variant="outlined"
@@ -100,7 +108,7 @@ const Form = ({currentId, setCurrentId}) => {
           onChange={(e) =>
             setPostData({
               ...postData,
-              tags: e.target.value.split(','),
+              tags: e.target.value.split(","),
             })
           }
         />
