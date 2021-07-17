@@ -5,6 +5,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Home from "./components/Home/Home";
 import Auth from "./components/Auth/Auth";
+require('dotenv').config();
+
 const App = () => {
   return (
     <BrowserRouter>
