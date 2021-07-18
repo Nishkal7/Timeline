@@ -14,6 +14,15 @@ import Icon from "./Icon";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import useStyles from "./styles";
+import { signin, signup } from "../../actions/auth";
+
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const Auth = () => {
   const Classes = useStyles();
@@ -21,14 +30,21 @@ const Auth = () => {
   const history = useHistory();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+  const [formData, setFormData] = useState(initialState);
   const state = null;
 
-  const handleSubmit = () => {
-    console.log("Submit Clicked");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (isSignup) {
+      dispatch(signup(formData, history));
+    } else {
+      dispatch(signin(formData, history));
+    }
   };
 
-  const handleChange = () => {
-    console.log("Input Change occured");
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleShowPassword = () => {
@@ -46,7 +62,7 @@ const Auth = () => {
 
     try {
       dispatch({ type: "AUTH", data: { result, token } });
-      history.push('/');
+      history.push("/");
     } catch (error) {
       console.log("Authentication error", error);
       alert(
