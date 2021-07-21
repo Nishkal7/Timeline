@@ -5,6 +5,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const postRoutes = require("./routes/posts");
+const userRoutes = require("./routes/users");
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/posts", postRoutes);
+app.use('/user',userRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello, Welcome to the Backend side for Wishlist Project : Author - Nishkal");
