@@ -11,9 +11,9 @@ const Form = ({ currentId, setCurrentId }) => {
   );
   const allPosts = useSelector((state) => state.posts);
   const Classes = useStyles();
+  const user = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
   const [postData, setPostData] = useState({
-    creator: "",
     title: "",
     message: "",
     tags: "",
@@ -28,21 +28,33 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
     if (allPosts.length <= 50) {
       if (currentId) {
-        dispatch(updatePost(currentId, postData));
+        dispatch(
+          updatePost(currentId, { ...postData, name: user?.result?.name })
+        );
       } else {
-        dispatch(createPost(postData));
+        dispatch(createPost({ ...postData, name: user?.result?.name }));
       }
-    }
-    else{
-      alert("Developer has set the limit uploads to 50, Please contact Nishkal for more information")
+    } else {
+      alert(
+        "Developer has set the limit uploads to 50, Please contact Nishkal for more information"
+      );
     }
     clear();
   };
 
+  if (!user?.result?.name) {
+    return (
+      <Paper className={Classes.paper}>
+        <Typography variant="h6" align="center">
+          Please Sign in to create your own memories and like others memories...
+        </Typography>
+      </Paper>
+    );
+  }
+
   const clear = () => {
     setCurrentId(null);
     setPostData({
-      creator: "",
       title: "",
       message: "",
       tags: "",
@@ -60,7 +72,7 @@ const Form = ({ currentId, setCurrentId }) => {
         <Typography variant="h6">
           {currentId ? "Updating" : "Creating"} a Memory
         </Typography>
-        <TextField
+        {/* <TextField
           name="creator"
           variant="outlined"
           label="Creator"
@@ -72,7 +84,7 @@ const Form = ({ currentId, setCurrentId }) => {
               creator: e.target.value,
             })
           }
-        />
+        /> */}
         <TextField
           name="title"
           variant="outlined"
@@ -91,6 +103,8 @@ const Form = ({ currentId, setCurrentId }) => {
           variant="outlined"
           label="Message"
           fullWidth
+          multiline
+          rows={4}
           value={postData.message}
           onChange={(e) =>
             setPostData({

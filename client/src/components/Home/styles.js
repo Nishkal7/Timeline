@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   footerContainer: {
-    margin: "10px",
+    marginTop: "10px",
     borderRadius: 15,
   },
   footer2Container:{

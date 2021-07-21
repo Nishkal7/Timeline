@@ -53,7 +53,7 @@ const Auth = () => {
 
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
-    handleShowPassword(false);
+    setShowPassword(false);
   };
 
   const googleSuccess = async (res) => {
@@ -65,17 +65,11 @@ const Auth = () => {
       history.push("/");
     } catch (error) {
       console.log("Authentication error", error);
-      alert(
-        "Google Authentication was unsuccessful. Try again Later or drop a Mail to (nishkal8463@gmail.com)"
-      );
     }
   };
 
   const googleFailure = (error) => {
     console.log("Response error", error);
-    alert(
-      "Google sign in was unsuccessful. Try again Later or drop a Mail to (nishkal8463@gmail.com)"
-    );
   };
 
   return (

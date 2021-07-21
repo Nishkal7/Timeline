@@ -38,11 +38,11 @@ const Home = () => {
           </Grid>
         </Container>
       </Grow>
-      <AppBar position="static" className={Classes.footerContainer}>
+      {/* <AppBar position="static" className={Classes.footerContainer}>
         <Container maxWidth="sm" className={Classes.footer2Container}>
           <Typography variant="body1">Created by Nishkal</Typography>
         </Container>
-      </AppBar>
+      </AppBar> */}
     </div>
   );
 };
