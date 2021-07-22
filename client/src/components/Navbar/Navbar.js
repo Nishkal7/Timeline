@@ -36,7 +36,7 @@ const Navbar = () => {
     <div>
       <AppBar className={Classes.appBar} position="static" color="inherit">
         <div className={Classes.brandContainer}>
-          <Typography
+          {/* <Typography
             component={Link}
             to="/"
             className={Classes.heading}
@@ -44,7 +44,7 @@ const Navbar = () => {
             align="center"
           >
             WISHLIST
-          </Typography>
+          </Typography> */}
           <img
             className={Classes.image}
             src={wishListIcon}
