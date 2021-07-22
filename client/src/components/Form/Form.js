@@ -26,7 +26,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (allPosts.length <= 50) {
+    if (allPosts.length <= 70) {
       if (currentId) {
         dispatch(
           updatePost(currentId, { ...postData, name: user?.result?.name })

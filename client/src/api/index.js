@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const API = axios.create({ baseURL: "http://localhost:3000" });
-const API = axios.create({ baseURL: "https://wishlist-proj.herokuapp.com" });
+const API = axios.create({ baseURL: "http://localhost:3000" });
+// const API = axios.create({ baseURL: "https://wishlist-proj.herokuapp.com" });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
@@ -15,6 +15,7 @@ API.interceptors.request.use((req) => {
 // const url = 'https://wishlist-proj.herokuapp.com/posts';
 
 export const fetchPosts = () => API.get("/posts");
+export const fetchPostsBySearch = (searchQuery) => API.get(`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
 export const createPost = (newPost) => API.post("/posts", newPost);
 export const updatePost = (id, updatedPost) =>
   API.patch(`/posts/${id}`, updatedPost);
