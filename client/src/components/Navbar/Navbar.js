@@ -36,21 +36,20 @@ const Navbar = () => {
     <div>
       <AppBar className={Classes.appBar} position="static" color="inherit">
         <div className={Classes.brandContainer}>
-          {/* <Typography
+          <Button
             component={Link}
             to="/"
-            className={Classes.heading}
-            variant="h5"
-            align="center"
+            // className={Classes.heading}
+            // variant="h5"
+            // align="center"
           >
-            WISHLIST
-          </Typography> */}
-          <img
-            className={Classes.image}
-            src={wishListIcon}
-            alt="memories"
-            height="60"
-          />
+            <img
+              className={Classes.image}
+              src={wishListIcon}
+              alt="memories"
+              height="60"
+            />
+          </Button>
         </div>
         <Toolbar className={Classes.toolbar}>
           {user ? (

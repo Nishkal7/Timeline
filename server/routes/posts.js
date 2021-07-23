@@ -4,6 +4,7 @@ const posts = require('../controllers/posts.js');
 
 const router = express.Router();
 
+router.get('/search', posts.getPostsBySearch);
 router.get('/', posts.getPosts);
 router.post('/', auth, posts.createPost);
 router.patch('/:id', auth, posts.updatePost);

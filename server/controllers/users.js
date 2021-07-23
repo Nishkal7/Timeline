@@ -8,7 +8,6 @@ const signin = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    console.log("CAMER TO TTIOI")
     const oldUser = await User.findOne({ email });
 
     if (!oldUser) return res.status(404).json({ message: "User doesn't exist" });

@@ -14,7 +14,7 @@ API.interceptors.request.use((req) => {
 
 // const url = 'https://wishlist-proj.herokuapp.com/posts';
 
-export const fetchPosts = () => API.get("/posts");
+export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
 export const fetchPostsBySearch = (searchQuery) => API.get(`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
 export const createPost = (newPost) => API.post("/posts", newPost);
 export const updatePost = (id, updatedPost) =>
