@@ -10,7 +10,6 @@ const Posts = ({ setCurrentId }) => {
 
   if(!posts.length && !isLoading) return 'No Posts';
 
-  console.log(posts);
   return isLoading ? (
     <CircularProgress />
   ) : (
