@@ -45,9 +45,29 @@ export default makeStyles({
   },
   tag: {
     padding: '5px 5px',
+    display: "-webkit-box",
+    boxOrient: "vertical",
+    lineClamp: 1,
+    wordBreak: "break-all",
+    overflow: "hidden"
+  },
+  headTitle: {
+    padding: '5px 5px',
+    display: "-webkit-box",
+    boxOrient: "vertical",
+    lineClamp: 1,
+    wordBreak: "break-all",
+    overflow: "hidden"
   },
   title: {
     padding: '0px 7px',
+    minHeight:"50px",
+    display: "-webkit-box",
+    boxOrient: "vertical",
+    lineClamp: 2,
+    wordBreak: "break-all",
+    overflow: "hidden"
+
   },
   cardActions: {
     padding: '0 16px 8px 16px',
@@ -59,3 +79,9 @@ export default makeStyles({
     textAlign: 'initial',
   },
 });
+// display: block;/* or inline-block */
+//   text-overflow: ellipsis;
+//   word-wrap: break-word;
+//   overflow: hidden;
+//   max-height: 3.6em;
+//   line-height: 1.8em;

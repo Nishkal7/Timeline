@@ -95,7 +95,7 @@ const Post = ({ post, setCurrentId }) => {
           >
             {post.tags.map((tag) => `#${tag} `)}
           </Typography>
-          <Typography className={Classes.tag} variant="h5" gutterBottom>
+          <Typography className={Classes.headTitle} variant="h5" gutterBottom>
             {post.title}
           </Typography>
 
