@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import useStyles from "./styles";
 import { createPost, updatePost } from "../../actions/posts";
 
 const Form = ({ currentId, setCurrentId }) => {
+  const history = useHistory();
   const post = useSelector((state) =>
     currentId ? state.posts.posts.find((p) => p._id === currentId) : null
   );
@@ -24,6 +26,19 @@ const Form = ({ currentId, setCurrentId }) => {
     if (post) setPostData(post);
   }, [post]);
 
+  const validateForm = () => {
+    if (
+      postData.title.length > 0 &&
+      postData.message.length > 0 &&
+      postData.tags.length > 0 &&
+      postData.selectedFile.length > 0
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (allPosts.length <= 70) {
@@ -32,7 +47,9 @@ const Form = ({ currentId, setCurrentId }) => {
           updatePost(currentId, { ...postData, name: user?.result?.name })
         );
       } else {
-        dispatch(createPost({ ...postData, name: user?.result?.name }));
+        dispatch(
+          createPost({ ...postData, name: user?.result?.name }, history)
+        );
       }
     } else {
       alert(
@@ -62,7 +79,7 @@ const Form = ({ currentId, setCurrentId }) => {
     });
   };
   return (
-    <Paper className={Classes.paper}>
+    <Paper className={Classes.paper} elevation={6}>
       <form
         autoComplete="off"
         noValidate
@@ -142,6 +159,7 @@ const Form = ({ currentId, setCurrentId }) => {
           size="large"
           type="submit"
           fullWidth
+          disabled={validateForm() ? false : true}
         >
           Submit
         </Button>

@@ -24,6 +24,7 @@ function useQuery() {
 
 const Home = () => {
   const [currentId, setCurrentId] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
   const Classes = useStyles();
   const [search, setSearch] = useState("");
   const [tags, setTags] = useState([]);
@@ -59,11 +60,25 @@ const Home = () => {
           tags: tags.join(","),
         })
       );
-      history.push(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
+      history.push(
+        `/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`
+      );
     } else {
       history.push("/");
     }
   };
+
+  const handleResize = () => {
+    if (window.innerWidth < 720) {
+        setIsMobile(true)
+    } else {
+        setIsMobile(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize)
+  })
 
   return (
     <div>
@@ -114,13 +129,20 @@ const Home = () => {
                 </Button>
               </AppBar>
               <Form currentId={currentId} setCurrentId={setCurrentId} />
-              <Paper elevation={6}>
-                <Pagination page={page} />
-              </Paper>
+              {!searchQuery && !tags.length && (
+                <Paper elevation={6} className={Classes.pagination}>
+                  <Pagination page={page} />
+                </Paper>
+              )}
             </Grid>
           </Grid>
         </Container>
       </Grow>
+      {isMobile && !searchQuery && !tags.length && (
+        <Paper elevation={6} className={Classes.pagination}>
+          <Pagination page={page} />
+        </Paper>
+      )}
       {/* <AppBar position="static" className={Classes.footerContainer}>
         <Container maxWidth="sm" className={Classes.footer2Container}>
           <Typography variant="body1">Created by Nishkal</Typography>

@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get('/search', posts.getPostsBySearch);
 router.get('/', posts.getPosts);
+router.get('/:id',posts.getPost);
 router.post('/', auth, posts.createPost);
 router.patch('/:id', auth, posts.updatePost);
 router.delete('/:id', auth, posts.deletePost);

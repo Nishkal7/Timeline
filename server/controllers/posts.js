@@ -14,6 +14,18 @@ const getPosts = async (req, res) => {
   }
 };
 
+const getPost = async (req, res) => { 
+  const { id } = req.params;
+
+  try {
+      const post = await PostMessage.findById(id);
+      
+      res.status(200).json(post);
+  } catch (error) {
+      res.status(404).json({ message: error.message });
+  }
+}
+
  const getPostsBySearch = async (req, res) => {
   const { searchQuery, tags } = req.query;
 
@@ -86,6 +98,7 @@ const likePost = async (req, res) => {
 
 module.exports = {
   getPosts: getPosts,
+  getPost: getPost,
   createPost: createPost,
   updatePost: updatePost,
   deletePost:deletePost,

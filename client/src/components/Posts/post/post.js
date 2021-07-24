@@ -6,6 +6,7 @@ import {
   CardMedia,
   Button,
   Typography,
+  ButtonBase,
 } from "@material-ui/core";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
@@ -14,10 +15,12 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { deletePost, likePost } from "../../../actions/posts";
+import { useHistory } from "react-router-dom";
 
 import useStyles from "./styles";
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const Classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
 
@@ -49,13 +52,19 @@ const Post = ({ post, setCurrentId }) => {
     );
   };
 
+
+  const openPost = () => history.push(`/posts/${post._id}`);
+
+
   return (
     <Card className={Classes.card} raised elevation={6}>
-      <CardMedia
-        className={Classes.media}
-        image={post.selectedFile}
-        title={post.title}
-      />
+      <div onClick={openPost} styles={Classes.cardAction}>
+        <CardMedia
+          className={Classes.media}
+          image={post.selectedFile}
+          title={post.title}
+        />
+      </div>
       <div className={Classes.overlay}>
         <Typography variant="h6">{post.name}</Typography>
         <Typography variant="body2">
@@ -64,11 +73,14 @@ const Post = ({ post, setCurrentId }) => {
       </div>
       {(user?.result?.googleId === post?.creator ||
         user?.result?._id === post?.creator) && (
-        <div className={Classes.overlay2}>
+          <div className={Classes.overlay2} name="edit">
           <Button
-            style={{ color: "white" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setCurrentId(post._id);
+            }}
+            style={{ color: 'white' }}
             size="small"
-            onClick={() => setCurrentId(post._id)}
           >
             <MoreHorizIcon fontSize="default" />
           </Button>
@@ -109,7 +121,7 @@ const Post = ({ post, setCurrentId }) => {
             user?.result?._id === post?.creator) && (
             <Button
               size="small"
-              color="primary"
+              color="secondary"
               onClick={() => dispatch(deletePost(post._id))}
             >
               <DeleteIcon fontSize="small" />
